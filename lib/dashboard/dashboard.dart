@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'app_bar.dart';
+import 'analytics_widget.dart';
+import 'customer_service_widget.dart';
+import 'earnings_widget.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -14,6 +17,25 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(),
+      body: new Container(
+        padding: const EdgeInsets.symmetric(horizontal: 60.0),
+        child: new ListView(
+          children: <Widget>[
+            new SizedBox(
+              height: 40.0,
+            ),
+            new AnalyticsWidget(),
+            new SizedBox(
+              height: 40.0,
+            ),
+            new CustomerServiceWidget(),
+            new SizedBox(
+              height: 40.0,
+            ),
+            new EarningsWidget()
+          ],
+        ),
+      ),
     );
   }
 }

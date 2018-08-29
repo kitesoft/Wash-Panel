@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wash_x/my_colors.dart';
 import 'package:wash_x/my_strings.dart';
+import 'package:wash_x/constants.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
@@ -35,7 +36,7 @@ class _MyAppBarState extends State<MyAppBar> {
         ),
         new Text(
           Strings.washPanel.toUpperCase(),
-          style: const TextStyle(fontSize: 25.0),
+          style: const TextStyle(fontSize: FontSize.medium),
         )
       ],
     );
