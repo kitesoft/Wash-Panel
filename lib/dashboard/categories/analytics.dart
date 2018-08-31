@@ -1,70 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:wash_x/my_strings.dart';
-import 'data_card.dart';
-import 'chart_card.dart';
-import 'see_all_card.dart';
+import 'package:wash_x/dashboard/data_card.dart';
+import 'package:wash_x/dashboard/chart_card.dart';
+import 'package:wash_x/dashboard/empty_card.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'base_category.dart';
 
-class AnalyticsWidget extends StatefulWidget {
+class Analytics extends BaseCategory {
   @override
-  _AnalyticsWidgetState createState() {
-    return new _AnalyticsWidgetState();
-  }
+  State<StatefulWidget> createState() => new _AnalyticsState();
+
+  Analytics() : super(title: Strings.analytics);
 }
 
-class _AnalyticsWidgetState extends State<AnalyticsWidget> {
-  MediaQueryData mediaQueryData;
+class _AnalyticsState extends BaseCategoryState {
   ChartTime chartTime = ChartTime.day;
-
-  @override
-  Widget build(BuildContext context) {
-    mediaQueryData = MediaQuery.of(context);
-    return new Container(
-      height: mediaQueryData.size.height / 4.0,
-      child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          new Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                new Text(
-                  Strings.analytics.toUpperCase(),
-                  style: const TextStyle(fontSize: 18.0),
-                ),
-                new Text(
-                  Strings.seeAll.toUpperCase(),
-                  style: const TextStyle(fontSize: 18.0),
-                )
-              ],
-            ),
-          ),
-          new SizedBox(
-            height: 10.0,
-          ),
-          new Expanded(
-              child: new ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              new DataCard(
-                  title: Strings.analytics,
-                  description: Strings.analyticsDes,
-                  icon: getBars(),
-                  color: Colors.redAccent),
-              new ChartCard(
-                title: Strings.activeUsers,
-                type: chartTime,
-                onTypeChange: (ChartTime type) => setState(() => this.chartTime = type),
-                seriesList: _createSampleData(),
-              ),
-              new SeeAllCard(onPressed: _handleSeeAll,)
-            ],
-          ))
-        ],
-      ),
-    );
-  }
 
   List<charts.Series<ChartData, DateTime>> _createSampleData() {
     final now = new DateTime.now();
@@ -111,10 +61,9 @@ class _AnalyticsWidgetState extends State<AnalyticsWidget> {
   }
 
   Widget getBars() {
-    var height = mediaQueryData.size.height;
     return new Row(
       crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[getBar(height / 9), getBar(height / 11), getBar(height / 15)],
+      children: <Widget>[getBar(90.0), getBar(70.0), getBar(50.0)],
     );
   }
 
@@ -129,7 +78,21 @@ class _AnalyticsWidgetState extends State<AnalyticsWidget> {
     );
   }
 
-  void _handleSeeAll() {
-    print('You clicked see all');
+  @override
+  List<Widget> getChildren() {
+    return <Widget>[
+      new DataCard(
+          title: Strings.analytics,
+          description: Strings.analyticsDes,
+          icon: getBars(),
+          color: Colors.redAccent),
+      new ChartCard(
+        title: Strings.activeUsers,
+        type: chartTime,
+        onTypeChange: (ChartTime type) => setState(() => this.chartTime = type),
+        seriesList: _createSampleData(),
+      ),
+      new EmptyCard(title: ''),
+    ];
   }
 }

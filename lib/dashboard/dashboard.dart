@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'app_bar.dart';
-import 'analytics_widget.dart';
-import 'customer_service_widget.dart';
-import 'earnings_widget.dart';
+import 'package:wash_x/dashboard/categories/customer_service.dart';
+import 'package:wash_x/dashboard/categories/financials.dart';
+import 'package:wash_x/dashboard/categories/analytics.dart';
+import 'package:wash_x/dashboard/categories/operations.dart';
+import 'package:wash_x/dashboard/categories/pickups.dart';
+import 'package:wash_x/dashboard/categories/wash.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -11,6 +14,14 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  var box = new SizedBox(height: 40.0);
+  List<Widget> categories;
+
+  @override
+  void initState() {
+    _initCategories();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,24 +29,30 @@ class _DashboardState extends State<Dashboard> {
       key: _scaffoldKey,
       appBar: MyAppBar(),
       body: new Container(
-        padding: const EdgeInsets.symmetric(horizontal: 60.0),
-        child: new ListView(
-          children: <Widget>[
-            new SizedBox(
-              height: 40.0,
-            ),
-            new AnalyticsWidget(),
-            new SizedBox(
-              height: 40.0,
-            ),
-            new CustomerServiceWidget(),
-            new SizedBox(
-              height: 40.0,
-            ),
-            new EarningsWidget()
-          ],
-        ),
+        color: Colors.white,
+        child: new ListView.builder(
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              return categories[index];
+            }),
       ),
     );
+  }
+
+  void _initCategories() {
+    categories = [
+      box,
+      new Analytics(),
+      box,
+      new CustomerService(),
+      box,
+      new Financials(),
+      box,
+      new PickUps(),
+      box,
+      new Operations(),
+      box,
+      new Wash(),
+    ];
   }
 }
