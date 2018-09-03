@@ -14,11 +14,13 @@ class DataCard extends BaseCard {
 
   @override
   Widget getWidget(BuildContext context) {
+    var box = const SizedBox(width: 40.0);
     return new Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          box,
           new Expanded(
               child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,18 +38,15 @@ class DataCard extends BaseCard {
               new Text(
                 description,
                 maxLines: 3,
-                overflow: TextOverflow.fade,
+                textAlign: TextAlign.justify,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: FontSize.large, color: Colors.white),
               )
             ],
           )),
-          new SizedBox(
-            width: 15.0,
-          ),
+          box,
           icon,
-          new SizedBox(
-            width: 30.0,
-          )
+          box
         ],
       ),
     );

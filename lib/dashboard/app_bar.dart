@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wash_x/my_colors.dart';
 import 'package:wash_x/my_strings.dart';
 import 'package:wash_x/constants.dart';
 
@@ -85,7 +84,8 @@ class _MyAppBarState extends State<MyAppBar> {
     );
 
     Widget appBar = new Container(
-      padding: new EdgeInsets.only(top: mediaQueryData.padding.top, right: 10.0, left: 10.0),
+      padding: new EdgeInsets.only(
+          top: mediaQueryData.padding.top + 3.0, right: 10.0, left: 10.0, bottom: 3.0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[leading, trailing],
@@ -96,8 +96,8 @@ class _MyAppBarState extends State<MyAppBar> {
       container: true,
       explicitChildNodes: true,
       child: new Material(
-        color: MyColors.colorPrimary,
-        elevation: 0.0,
+        color: Colors.white,
+        elevation: 3.0,
         child: appBar,
       ),
     );
@@ -117,23 +117,26 @@ class _MyAppBarState extends State<MyAppBar> {
 
   Widget _getSmallButton(String toolTip, void Function() function, {IconData icon, String img}) {
     return new IconButton(
-      iconSize: 50.0,
-      icon: new Container(
-        decoration: new BoxDecoration(
-            shape: BoxShape.circle, border: new Border.all(width: 0.5, color: Colors.grey[600])),
+      iconSize: 45.0,
+      icon: new Card(
+        elevation: 2.0,
+        margin: const EdgeInsets.all(0.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(100.0)),
+        ),
         child: new Padding(
-          padding: new EdgeInsets.all(img == null ? 5.0 : 13.0),
+          padding: new EdgeInsets.all(img == null ? 5.0 : 10.0),
           child: img == null
               ? Icon(
                   icon,
-                  size: 40.0,
+                  size: 35.0,
                   color: Colors.black,
                 )
               : new Image.asset(
                   'assets/images/$img',
                   color: Colors.black,
-                  width: 27.0,
-                  height: 27.0,
+                  width: 22.0,
+                  height: 22.0,
                 ),
         ),
       ),
@@ -168,79 +171,81 @@ class _MyAppBarState extends State<MyAppBar> {
       }
     }
 
-    return new Container(
-      width: mediaQueryData.size.width / 5.5,
-      padding: const EdgeInsets.only(left: 20.0),
+    return new Card(
+      elevation: 2.0,
       margin: const EdgeInsets.symmetric(horizontal: 7.0),
-      decoration: new BoxDecoration(
-        borderRadius: BorderRadius.circular(100.0),
-        border: Border.all(width: 0.5, color: Colors.grey[600]),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(100.0)),
       ),
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          users != null
-              ? new Container(
-                  child: new PopupMenuButton<int>(
-                      child: new Row(
-                        children: <Widget>[
-                          new Text(
-                            users[userIndex],
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          new SizedBox(
-                            width: 5.0,
-                          ),
-                          new Icon(Icons.keyboard_arrow_down)
-                        ],
-                      ),
-                      onSelected: onUserSelected,
-                      itemBuilder: (BuildContext context) => nameItems),
-                )
-              : new Text(
-                  name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-          new SizedBox(
-            width: 20.0,
-          ),
-          new Expanded(
-              child: new Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Expanded(
-                child: new Text(
-                  items[index],
-                  maxLines: 1,
-                  textAlign: TextAlign.end,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              new SizedBox(
-                width: 5.0,
-              ),
-              new PopupMenuButton<int>(
-                  icon: const Icon(
-                    Icons.arrow_drop_down_circle,
-                    color: Colors.black,
+      child: new Container(
+        width: mediaQueryData.size.width / 5.0,
+        padding: const EdgeInsets.only(left: 15.0),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            users != null
+                ? new Container(
+                    child: new PopupMenuButton<int>(
+                        child: new Row(
+                          children: <Widget>[
+                            new Text(
+                              users[userIndex],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            new SizedBox(
+                              width: 5.0,
+                            ),
+                            new Icon(Icons.keyboard_arrow_down)
+                          ],
+                        ),
+                        onSelected: onUserSelected,
+                        itemBuilder: (BuildContext context) => nameItems),
+                  )
+                : new Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  padding: EdgeInsets.zero,
-                  onSelected: onSelected,
-                  itemBuilder: (BuildContext context) => menuItems)
-            ],
-          ))
-        ],
+            new SizedBox(
+              width: 15.0,
+            ),
+            new Expanded(
+                child: new Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Expanded(
+                  child: new Text(
+                    items[index],
+                    maxLines: 1,
+                    textAlign: TextAlign.end,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                new SizedBox(
+                  width: 5.0,
+                ),
+                new PopupMenuButton<int>(
+                    icon: const Icon(
+                      Icons.arrow_drop_down_circle,
+                      color: Colors.black,
+                    ),
+                    padding: EdgeInsets.zero,
+                    onSelected: onSelected,
+                    itemBuilder: (BuildContext context) => menuItems)
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }
 }
 
 var cities = ['Montreal', 'Quebec City', 'Laval', 'Longueuil'];
-var drivers = ['All', 'Janeth, Anthony ', 'William Samuel', 'Feelix Logan'];
+var drivers = ['All', 'Janeth, Anthony ', 'William Samuel', 'Felix Logan'];
 var partners = [
   'Partner 1',
   'Partner 3',
