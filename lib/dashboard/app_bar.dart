@@ -3,6 +3,10 @@ import 'package:wash_x/my_strings.dart';
 import 'package:wash_x/constants.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final bool showElevation;
+
+  MyAppBar(this.showElevation);
+
   @override
   State<StatefulWidget> createState() => new _MyAppBarState();
 
@@ -61,26 +65,26 @@ class _MyAppBarState extends State<MyAppBar> {
       ],
     );
 
-    Widget dropDowns = new Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        _getDropWidget(
-            _selectedUser == 0 ? drivers : partners, users[_selectedUser], _selectedSubUser,
-            onSelected: (int index) => setState(() => _selectedSubUser = index),
-            users: users,
-            userIndex: _selectedUser,
-            onUserSelected: (int index) => setState(() {
-                  _selectedSubUser = 0;
-                  _selectedUser = index;
-                })),
-        _getDropWidget(cities, 'Cities', _selectedCity,
-            onSelected: (int index) => setState(() => _selectedCity = index))
-      ],
-    );
+//    Widget dropDowns = new Row(
+//      crossAxisAlignment: CrossAxisAlignment.center,
+//      children: <Widget>[
+//        _getDropWidget(
+//            _selectedUser == 0 ? drivers : partners, users[_selectedUser], _selectedSubUser,
+//            onSelected: (int index) => setState(() => _selectedSubUser = index),
+//            users: users,
+//            userIndex: _selectedUser,
+//            onUserSelected: (int index) => setState(() {
+//                  _selectedSubUser = 0;
+//                  _selectedUser = index;
+//                })),
+//        _getDropWidget(cities, 'Cities', _selectedCity,
+//            onSelected: (int index) => setState(() => _selectedCity = index))
+//      ],
+//    );
 
     Widget trailing = new Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[smallButtons, dropDowns],
+      children: <Widget>[smallButtons],
     );
 
     Widget appBar = new Container(
@@ -97,7 +101,7 @@ class _MyAppBarState extends State<MyAppBar> {
       explicitChildNodes: true,
       child: new Material(
         color: Colors.white,
-        elevation: 3.0,
+        elevation: widget.showElevation? 3.0: 0.0,
         child: appBar,
       ),
     );

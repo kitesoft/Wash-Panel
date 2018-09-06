@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wash_x/my_strings.dart';
 
-
 abstract class BaseCategory extends StatefulWidget {
   final String title;
+
   BaseCategory({@required this.title});
 }
 
-abstract class BaseCategoryState extends State<BaseCategory>{
+abstract class BaseCategoryState extends State<BaseCategory> {
   static const spacing = 60.0;
   final sizedBox = const SizedBox(width: spacing);
 
@@ -28,19 +28,17 @@ abstract class BaseCategoryState extends State<BaseCategory>{
                   style: const TextStyle(fontSize: 18.0),
                 ),
                 new FlatButton(
-                    onPressed: _handleSeeAll,
+                    onPressed: handleSeeAllPressed,
                     child: new Text(
                       Strings.seeAll.toUpperCase(),
-                      style: const TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.normal),
+                      style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
                     ))
               ],
             ),
           ),
           new Expanded(
               child: new ListView(
-                scrollDirection: Axis.horizontal,
-                children: _getChildrenWithSpacing())),
+                  scrollDirection: Axis.horizontal, children: _getChildrenWithSpacing())),
         ],
       ),
     );
@@ -48,15 +46,14 @@ abstract class BaseCategoryState extends State<BaseCategory>{
 
   List<Widget> _getChildrenWithSpacing() {
     final List<Widget> children = getChildren();
-    children.insert(0, sizedBox);  // Add spacing at the start
+    children.insert(0, sizedBox); // Add spacing at the start
     children.add(sizedBox); // Add Spacing at the end
     return children;
   }
 
   List<Widget> getChildren();
 
-  void _handleSeeAll() {
+  void handleSeeAllPressed() {
     print('You clicked see all');
   }
-
 }

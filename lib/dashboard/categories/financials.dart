@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wash_x/earnings/earnings/financials_page.dart';
 import 'package:wash_x/my_strings.dart';
 import 'package:wash_x/dashboard/data_card.dart';
 import 'package:wash_x/dashboard/empty_card.dart';
@@ -12,6 +13,7 @@ class Financials extends BaseCategory {
 }
 
 class _FinancialsState extends BaseCategoryState {
+
   @override
   List<Widget> getChildren() {
     return <Widget>[
@@ -23,5 +25,14 @@ class _FinancialsState extends BaseCategoryState {
       new EmptyCard(title: Strings.loremIpsum),
       new EmptyCard(title: ''),
     ];
+  }
+
+  @override
+  void handleSeeAllPressed() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return FinancialsPage();
+      }),
+    );
   }
 }
