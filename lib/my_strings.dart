@@ -15,6 +15,7 @@ class Strings {
   static const String cycles = 'Cycles';
   static const String status = 'Status';
   static const String wash = 'Wash';
+  static const String close = 'Close';
   static const String washs = 'Washs';
   static const String employees = 'Employees';
   static const String blahBlah =
