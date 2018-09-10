@@ -7,7 +7,7 @@ import 'package:wash_x/dashboard/categories/pickups.dart';
 import 'package:wash_x/dashboard/categories/wash.dart';
 
 import 'app_bar.dart';
-import 'live_panel.dart';
+import 'package:wash_x/dashboard/live/live_panel.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -39,27 +39,30 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(_showAppBarElevation),
-      body: new Container(
-        color: Colors.white,
-        width: double.infinity,
-        child: new Stack(
-          children: <Widget>[
-            new Positioned.fill(
-                child: new ListView.builder(
-                    controller: _scrollController,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      return categories[index];
-                    })),
-            new Positioned(
-              right: 0.0,
-              top: 0.0,
-              bottom: 0.0,
-              child: new LivePanel(),
-            )
-          ],
-        ),
-      ),
+      body: new OrientationBuilder(builder: (context, orientation) {
+        return new Container(
+          color: Colors.white,
+          width: double.infinity,
+          child: new Stack(
+            children: <Widget>[
+              new Positioned.fill(
+                  child: new ListView.builder(
+                      controller: _scrollController,
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) {
+                        return categories[index];
+                      })),
+              new Positioned(
+                right: 0.0,
+                height: orientation == Orientation.portrait ? MediaQuery.of(context).size.shortestSide : null,
+                top: orientation == Orientation.landscape ? 0.0 : null,
+                bottom: 0.0,
+                child: new LivePanel(),
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
 
