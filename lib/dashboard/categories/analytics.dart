@@ -7,10 +7,12 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'base_category.dart';
 
 class Analytics extends BaseCategory {
+  final VoidCallback onSeeAllPressed;
+
+  Analytics({this.onSeeAllPressed}) : super(title: Strings.analytics);
+
   @override
   State<StatefulWidget> createState() => new _AnalyticsState();
-
-  Analytics() : super(title: Strings.analytics);
 }
 
 class _AnalyticsState extends BaseCategoryState {
@@ -95,4 +97,11 @@ class _AnalyticsState extends BaseCategoryState {
       new EmptyCard(title: ''),
     ];
   }
+
+  @override
+  void handleSeeAllPressed() {
+    widget.onSeeAllPressed();
+  }
+
+
 }

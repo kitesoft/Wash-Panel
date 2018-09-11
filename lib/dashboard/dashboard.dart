@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:wash_x/analytics/analytics_page.dart';
 import 'package:wash_x/dashboard/categories/analytics.dart';
 import 'package:wash_x/dashboard/categories/customer_service.dart';
 import 'package:wash_x/dashboard/categories/financials.dart';
 import 'package:wash_x/dashboard/categories/operations.dart';
 import 'package:wash_x/dashboard/categories/pickups.dart';
 import 'package:wash_x/dashboard/categories/wash.dart';
+import 'start_scanning_ui.dart';
+import 'package:wash_x/dashboard/live/live_panel.dart';
 
 import 'app_bar.dart';
-import 'package:wash_x/dashboard/live/live_panel.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -52,18 +54,31 @@ class _DashboardState extends State<Dashboard> {
                       itemBuilder: (context, index) {
                         return categories[index];
                       })),
+
+              new Positioned(
+                  bottom: 50.0,
+                  right: 170.0,
+                  child: new StartButton(onPressed: _startTakeInUI,)),
               new Positioned(
                 right: 0.0,
-                height: orientation == Orientation.portrait ? MediaQuery.of(context).size.shortestSide : null,
+                height: orientation == Orientation.portrait
+                    ? MediaQuery.of(context).size.shortestSide
+                    : null,
                 top: orientation == Orientation.landscape ? 0.0 : null,
                 bottom: 0.0,
                 child: new LivePanel(),
-              )
+              ),
             ],
           ),
         );
       }),
     );
+  }
+
+  void _startTakeInUI() {
+    _scaffoldKey.currentState.showBottomSheet((context) {
+      return new ScanningWidget(30.0);
+    });
   }
 
   void _scrollChanged() {
@@ -73,7 +88,9 @@ class _DashboardState extends State<Dashboard> {
   void _initCategories() {
     categories = [
       _box,
-      new Analytics(),
+      new Analytics(
+        onSeeAllPressed: () => _startCategoryDetailsBottomSheet(Category.analytics),
+      ),
       _box,
       new CustomerService(),
       _box,
@@ -86,4 +103,31 @@ class _DashboardState extends State<Dashboard> {
       new Wash(),
     ];
   }
+
+  _startCategoryDetailsBottomSheet(Category category) {
+    Widget widget;
+    switch (category) {
+      case Category.analytics:
+        widget = new AnalyticsPage();
+        break;
+      case Category.customerService:
+        break;
+      case Category.financials:
+        break;
+      case Category.pickUps:
+        break;
+      case Category.operations:
+        break;
+      case Category.wash:
+        break;
+    }
+
+    if (widget != null) {
+      _scaffoldKey.currentState.showBottomSheet((context) {
+        return widget;
+      });
+    }
+  }
 }
+
+enum Category { analytics, customerService, financials, pickUps, operations, wash }

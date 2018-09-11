@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wash_x/constants.dart';
-import 'base_card.dart';
+import 'package:wash_x/common/base_card.dart';
 
 class DataCard extends BaseCard {
   final String title;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'base_card.dart';
+import 'package:wash_x/common/base_card.dart';
 import 'package:wash_x/constants.dart';
 import 'dart:math' as math;
 import 'package:charts_flutter/flutter.dart' as charts;
