@@ -3,8 +3,9 @@ import 'package:wash_x/my_strings.dart';
 
 abstract class BaseCategory extends StatefulWidget {
   final String title;
+  final VoidCallback onSeeAllPressed;
 
-  BaseCategory({@required this.title});
+  BaseCategory({@required this.title, this.onSeeAllPressed});
 }
 
 abstract class BaseCategoryState extends State<BaseCategory> {

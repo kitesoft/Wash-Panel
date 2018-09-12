@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'base_card.dart';
+import 'package:wash_x/common/base_card.dart';
 
 class EmptyCard extends BaseCard {
   final Widget child;
