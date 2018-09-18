@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:wash_x/my_strings.dart';
+import 'dart:async';
 
 class ScanningWidget extends StatelessWidget {
-  final double height;
+  final VoidCallback onScanned;
 
-  ScanningWidget(this.height);
+  ScanningWidget({@required this.onScanned});
 
   @override
   Widget build(BuildContext context) {
-    _startTimeOut();
+    _startTimeOut(context);
     return new Container(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -72,10 +73,14 @@ class ScanningWidget extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 
-  void _startTimeOut() {}
+  void _startTimeOut(BuildContext context) {
+    new Timer(const Duration(seconds: 3), () {
+      Navigator.pop(context);
+      onScanned();
+    });
+  }
 }
 
 class StartButton extends StatelessWidget {

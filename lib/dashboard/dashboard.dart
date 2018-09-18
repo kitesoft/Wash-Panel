@@ -6,8 +6,9 @@ import 'package:wash_x/dashboard/categories/financials.dart';
 import 'package:wash_x/dashboard/categories/operations.dart';
 import 'package:wash_x/dashboard/categories/pickups.dart';
 import 'package:wash_x/dashboard/categories/wash.dart';
-import 'start_scanning_ui.dart';
 import 'package:wash_x/dashboard/live/live_panel.dart';
+import 'package:wash_x/intake/add_widget.dart';
+import 'package:wash_x/intake/start_scanning_ui.dart';
 
 import 'app_bar.dart';
 
@@ -54,11 +55,12 @@ class _DashboardState extends State<Dashboard> {
                       itemBuilder: (context, index) {
                         return categories[index];
                       })),
-
               new Positioned(
                   bottom: 50.0,
                   right: 170.0,
-                  child: new StartButton(onPressed: _startTakeInUI,)),
+                  child: new StartButton(
+                    onPressed: _startTakeInUI,
+                  )),
               new Positioned(
                 right: 0.0,
                 height: orientation == Orientation.portrait
@@ -76,9 +78,9 @@ class _DashboardState extends State<Dashboard> {
   }
 
   void _startTakeInUI() {
-    _scaffoldKey.currentState.showBottomSheet((context) {
-      return new ScanningWidget(30.0);
-    });
+    _showBottomSheet(new ScanningWidget(
+      onScanned: () => _showBottomSheet(new AddIntake()),
+    ));
   }
 
   void _scrollChanged() {
@@ -123,10 +125,14 @@ class _DashboardState extends State<Dashboard> {
     }
 
     if (widget != null) {
-      _scaffoldKey.currentState.showBottomSheet((context) {
-        return widget;
-      });
+      _showBottomSheet(widget);
     }
+  }
+
+  _showBottomSheet(Widget widget) {
+    _scaffoldKey.currentState.showBottomSheet((context) {
+      return widget;
+    });
   }
 }
 
