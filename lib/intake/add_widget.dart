@@ -14,9 +14,13 @@ class _AddIntakeState extends State<AddIntake> {
       child: Container(
         width: MediaQuery.of(context).size.shortestSide,
         margin: const EdgeInsets.symmetric(horizontal: 20.0),
+
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+          boxShadow: [
+            const BoxShadow(blurRadius: 20.0, spreadRadius: 0.0, color: Colors.black38)
+          ],
         ),
         padding: const EdgeInsets.only(left: 25.0, right: 20.0, top: 10.0),
         child: new Column(
